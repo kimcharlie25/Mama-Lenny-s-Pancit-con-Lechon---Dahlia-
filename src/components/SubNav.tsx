@@ -10,9 +10,9 @@ const SubNav: React.FC<SubNavProps> = ({ selectedCategory, onCategoryClick }) =>
   const { categories, loading } = useCategories();
 
   return (
-    <div className="sticky top-16 z-40 bg-white/90 backdrop-blur-md border-b border-ramen-sesame">
+    <div className="sticky top-16 z-40 bg-white/95 backdrop-blur-md border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center space-x-4 overflow-x-auto py-3 scrollbar-hide">
+        <div className="flex items-center gap-3 overflow-x-auto py-3 scrollbar-hide flex-nowrap">
           {loading ? (
             <div className="flex space-x-4">
               {[1,2,3,4,5].map(i => (
@@ -23,10 +23,10 @@ const SubNav: React.FC<SubNavProps> = ({ selectedCategory, onCategoryClick }) =>
             <>
               <button
                 onClick={() => onCategoryClick('all')}
-                className={`px-3 py-1.5 rounded-full text-sm transition-colors duration-200 border ${
+                className={`flex-shrink-0 flex items-center justify-center px-3 py-1.5 rounded-full text-sm transition-colors duration-200 border font-medium min-w-[120px] sm:min-w-[140px] ${
                   selectedCategory === 'all'
-                    ? 'bg-ramen-red text-white border-ramen-red'
-                    : 'bg-white text-gray-700 border-gray-300 hover:border-ramen-red'
+                    ? 'bg-brand-primary text-white border-brand-primary shadow-sm'
+                    : 'bg-white text-slate-700 border-gray-300 hover:border-brand-primary'
                 }`}
               >
                 All
@@ -35,10 +35,10 @@ const SubNav: React.FC<SubNavProps> = ({ selectedCategory, onCategoryClick }) =>
                 <button
                   key={c.id}
                   onClick={() => onCategoryClick(c.id)}
-                  className={`px-3 py-1.5 rounded-full text-sm transition-colors duration-200 border flex items-center space-x-1 ${
+                  className={`flex-shrink-0 flex items-center justify-center px-3 py-1.5 rounded-full text-sm transition-colors duration-200 border space-x-1 font-medium min-w-[120px] sm:min-w-[140px] ${
                     selectedCategory === c.id
-                      ? 'bg-ramen-red text-white border-ramen-red'
-                      : 'bg-white text-gray-700 border-gray-300 hover:border-ramen-red'
+                      ? 'bg-brand-primary text-white border-brand-primary shadow-sm'
+                      : 'bg-white text-slate-700 border-gray-300 hover:border-brand-primary'
                   }`}
                 >
                   <span>{c.icon}</span>
