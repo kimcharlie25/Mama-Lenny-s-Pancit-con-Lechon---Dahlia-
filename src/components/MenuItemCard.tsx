@@ -94,56 +94,55 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
   return (
     <>
       <div className={`bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group animate-scale-in border border-slate-100 ${!item.available ? 'opacity-60' : ''}`}>
-        <div className="flex gap-4 p-4 sm:p-5">
-          {/* Image Container with Badges */}
-          <div className="relative w-28 h-28 sm:w-40 sm:h-40 rounded-xl overflow-hidden bg-gradient-to-br from-orange-50 to-white flex-shrink-0">
-            {item.image ? (
-              <img
-                src={item.image}
-                alt={item.name}
-                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                loading="lazy"
-                decoding="async"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                  e.currentTarget.nextElementSibling?.classList.remove('hidden');
-                }}
-              />
-            ) : null}
-            <div className={`absolute inset-0 flex items-center justify-center ${item.image ? 'hidden' : ''}`}>
-              <div className="text-4xl sm:text-5xl opacity-20 text-slate-300">🍽️</div>
-            </div>
-            
-            {/* Badges */}
-            <div className="absolute top-2 left-2 flex flex-col gap-1">
-              {item.isOnDiscount && item.discountPrice && (
-                <div className="bg-gradient-to-r from-brand-secondary to-brand-primary text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-md animate-pulse">
-                  SALE
-                </div>
-              )}
-              {item.popular && (
-                <div className="bg-gradient-to-r from-brand-primary to-amber-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-md">
-                  ⭐ POPULAR
-                </div>
-              )}
-            </div>
-            
-            {!item.available && (
-              <div className="absolute top-2 right-2 bg-slate-800 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-md">
-                UNAVAILABLE
+        {/* Image Container with Badges */}
+        <div className="relative h-48 bg-gradient-to-br from-orange-50 to-white">
+          {item.image ? (
+            <img
+              src={item.image}
+              alt={item.name}
+              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              loading="lazy"
+              decoding="async"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+                e.currentTarget.nextElementSibling?.classList.remove('hidden');
+              }}
+            />
+          ) : null}
+          <div className={`absolute inset-0 flex items-center justify-center ${item.image ? 'hidden' : ''}`}>
+            <div className="text-5xl opacity-20 text-slate-300">🍽️</div>
+          </div>
+          
+          {/* Badges */}
+          <div className="absolute top-3 left-3 flex flex-col gap-2">
+            {item.isOnDiscount && item.discountPrice && (
+              <div className="bg-gradient-to-r from-brand-secondary to-brand-primary text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg animate-pulse">
+                SALE
               </div>
             )}
-            
-            {/* Discount Percentage Badge */}
-            {item.isOnDiscount && item.discountPrice && (
-              <div className="absolute bottom-2 right-2 bg-white/90 backdrop-blur-sm text-brand-secondary text-[10px] font-bold px-2 py-1 rounded-full shadow-md">
-                {Math.round(((item.basePrice - item.discountPrice) / item.basePrice) * 100)}% OFF
+            {item.popular && (
+              <div className="bg-gradient-to-r from-brand-primary to-amber-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
+                ⭐ POPULAR
               </div>
             )}
           </div>
           
-          {/* Content */}
-          <div className="flex-1 flex flex-col justify-between min-w-0">
+          {!item.available && (
+            <div className="absolute top-3 right-3 bg-slate-800 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
+              UNAVAILABLE
+            </div>
+          )}
+          
+          {/* Discount Percentage Badge */}
+          {item.isOnDiscount && item.discountPrice && (
+            <div className="absolute bottom-3 right-3 bg-white/90 backdrop-blur-sm text-brand-secondary text-xs font-bold px-2 py-1 rounded-full shadow-lg">
+              {Math.round(((item.basePrice - item.discountPrice) / item.basePrice) * 100)}% OFF
+            </div>
+          )}
+        </div>
+        
+        {/* Content */}
+        <div className="p-5">
           <div className="flex items-start justify-between mb-3">
             <h4 className="text-lg font-semibold text-slate-900 leading-tight flex-1 pr-2">{item.name}</h4>
             {item.variations && item.variations.length > 0 && (
@@ -225,12 +224,11 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
 
           {/* Add-ons indicator */}
           {item.addOns && item.addOns.length > 0 && (
-            <div className="flex items-center space-x-1 text-xs text-slate-600 bg-slate-50 px-2 py-1 rounded-lg mt-1">
+            <div className="flex items-center space-x-1 text-xs text-slate-600 bg-slate-50 px-2 py-1 rounded-lg">
               <span>+</span>
               <span>{item.addOns.length} add-on{item.addOns.length > 1 ? 's' : ''} available</span>
             </div>
           )}
-          </div>
         </div>
       </div>
 
