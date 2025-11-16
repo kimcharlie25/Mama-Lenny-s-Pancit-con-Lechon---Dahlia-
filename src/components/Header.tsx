@@ -40,8 +40,8 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onCartClick, onMenuClic
             </h1>
           </button>
 
-          {/* Hide top cart button on mobile; use floating cart instead */}
-          <div className="hidden md:flex items-center space-x-2">
+          {/* Cart button (visible on all screen sizes) */}
+          <div className="flex items-center space-x-2">
             <button 
               onClick={onCartClick}
               className="relative p-2 text-white hover:text-brand-primary hover:bg-white rounded-full transition-all duration-200"
