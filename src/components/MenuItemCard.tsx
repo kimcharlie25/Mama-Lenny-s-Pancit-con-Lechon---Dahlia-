@@ -94,123 +94,134 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
   return (
     <>
       <div className={`bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group animate-scale-in border border-slate-100 ${!item.available ? 'opacity-60' : ''}`}>
-        <div className="flex gap-4 p-4 sm:p-5">
-          {/* Image Container with Badges */}
-          <div className="relative w-24 h-24 sm:w-32 sm:h-32 rounded-xl overflow-hidden bg-gradient-to-br from-orange-50 to-white flex-shrink-0">
-            {item.image ? (
-              <img
-                src={item.image}
-                alt={item.name}
-                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                loading="lazy"
-                decoding="async"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                  e.currentTarget.nextElementSibling?.classList.remove('hidden');
-                }}
-              />
-            ) : null}
-            <div className={`absolute inset-0 flex items-center justify-center ${item.image ? 'hidden' : ''}`}>
-              <div className="text-4xl sm:text-5xl opacity-20 text-slate-300">🍽️</div>
-            </div>
-            
-            {/* Badges */}
-            <div className="absolute top-2 left-2 flex flex-col gap-1">
-              {item.isOnDiscount && item.discountPrice && (
-                <div className="bg-gradient-to-r from-brand-secondary to-brand-primary text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-md animate-pulse">
-                  SALE
-                </div>
-              )}
-              {item.popular && (
-                <div className="bg-gradient-to-r from-brand-primary to-amber-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-md">
-                  ⭐ POPULAR
-                </div>
-              )}
-            </div>
-            
-            {!item.available && (
-              <div className="absolute top-2 right-2 bg-slate-800 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-md">
-                UNAVAILABLE
+        {/* Image Container with Badges */}
+        <div className="relative w-full h-48 sm:h-56 overflow-hidden bg-gradient-to-br from-orange-50 to-white">
+          {item.image ? (
+            <img
+              src={item.image}
+              alt={item.name}
+              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              loading="lazy"
+              decoding="async"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+                e.currentTarget.nextElementSibling?.classList.remove('hidden');
+              }}
+            />
+          ) : null}
+          <div className={`absolute inset-0 flex items-center justify-center ${item.image ? 'hidden' : ''}`}>
+            <div className="text-6xl sm:text-7xl opacity-20 text-slate-300">🍽️</div>
+          </div>
+          
+          {/* Badges */}
+          <div className="absolute top-2 left-2 flex flex-col gap-1">
+            {item.isOnDiscount && item.discountPrice && (
+              <div className="bg-gradient-to-r from-brand-secondary to-brand-primary text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-md animate-pulse">
+                SALE
               </div>
             )}
-            
-            {/* Discount Percentage Badge */}
-            {item.isOnDiscount && item.discountPrice && (
-              <div className="absolute bottom-2 right-2 bg-white/90 backdrop-blur-sm text-brand-secondary text-[10px] font-bold px-2 py-1 rounded-full shadow-md">
-                {Math.round(((item.basePrice - item.discountPrice) / item.basePrice) * 100)}% OFF
+            {item.popular && (
+              <div className="bg-gradient-to-r from-brand-primary to-amber-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-md">
+                ⭐ POPULAR
               </div>
             )}
           </div>
           
-          {/* Content: name + price + button on the right */}
-          <div className="flex-1 flex flex-col justify-between min-w-0">
-            <h4 className="text-base sm:text-lg font-semibold text-slate-900 leading-tight truncate mb-2">
+          {!item.available && (
+            <div className="absolute top-2 right-2 bg-slate-800 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-md">
+              UNAVAILABLE
+            </div>
+          )}
+          
+          {/* Discount Percentage Badge */}
+          {item.isOnDiscount && item.discountPrice && (
+            <div className="absolute bottom-2 right-2 bg-white/90 backdrop-blur-sm text-brand-secondary text-[10px] font-bold px-2 py-1 rounded-full shadow-md">
+              {Math.round(((item.basePrice - item.discountPrice) / item.basePrice) * 100)}% OFF
+            </div>
+          )}
+        </div>
+        
+        {/* Content: name, description, price, button */}
+        <div className="p-4 sm:p-5">
+          <div className="mb-3">
+            <h4 className="text-lg sm:text-xl font-semibold text-slate-900 leading-tight mb-1">
               {item.name}
             </h4>
-
-            <div className="flex items-center justify-between gap-2">
-              {/* Price (left) */}
-              <div className="flex-1">
-                {item.isOnDiscount && item.discountPrice ? (
-                  <div className="space-y-0.5">
-                    <div className="flex items-center space-x-2">
-                      <span className="text-lg sm:text-xl font-bold text-brand-secondary">
-                        ₱{item.discountPrice.toFixed(2)}
-                      </span>
-                      <span className="text-xs sm:text-sm text-slate-500 line-through">
-                        ₱{item.basePrice.toFixed(2)}
-                      </span>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="text-lg sm:text-xl font-bold text-slate-900">
-                    ₱{item.basePrice.toFixed(2)}
-                  </div>
-                )}
-
-                {item.variations && item.variations.length > 0 && (
-                  <div className="text-[11px] sm:text-xs text-slate-500">
-                    Starting from
-                  </div>
-                )}
+            {item.description && item.description.trim() && (
+              <p className="text-sm text-slate-600 leading-relaxed break-words whitespace-normal">
+                {item.description}
+              </p>
+            )}
+            {item.variations && item.variations.length > 0 && (
+              <div className="text-xs text-slate-500 mt-1">
+                {item.variations.length} sizes available
               </div>
+            )}
+          </div>
 
-              {/* Button / quantity (right) */}
-              <div className="flex-shrink-0">
-                {!item.available ? (
-                  <button
-                    disabled
-                    className="bg-slate-200 text-slate-500 px-3 py-1.5 rounded-xl cursor-not-allowed text-xs font-medium"
-                  >
-                    Unavailable
-                  </button>
-                ) : quantity === 0 ? (
-                  <button
-                    onClick={handleAddToCart}
-                    className="bg-gradient-to-r from-brand-primary to-brand-secondary text-white px-4 py-1.5 rounded-xl hover:from-brand-secondary hover:to-brand-primary transition-all duration-200 transform hover:scale-105 text-xs sm:text-sm font-semibold shadow-md"
-                  >
-                    {item.variations?.length || item.addOns?.length ? 'Select' : 'Add'}
-                  </button>
-                ) : (
-                  <div className="flex items-center space-x-1 bg-orange-50 rounded-xl p-1 border border-orange-200">
-                    <button
-                      onClick={handleDecrement}
-                      className="p-1.5 hover:bg-orange-100 rounded-lg transition-colors duration-200"
-                    >
-                      <Minus className="h-3 w-3 text-slate-700" />
-                    </button>
-                    <span className="font-bold text-slate-900 min-w-[22px] text-center text-xs">
-                      {quantity}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mt-4">
+            {/* Price */}
+            <div className="flex-1">
+              {item.isOnDiscount && item.discountPrice ? (
+                <div className="space-y-1">
+                  <div className="flex items-center space-x-2">
+                    <span className="text-2xl font-bold text-brand-secondary">
+                      ₱{item.discountPrice.toFixed(2)}
                     </span>
-                    <button
-                      onClick={handleIncrement}
-                      className="p-1.5 hover:bg-orange-100 rounded-lg transition-colors duration-200"
-                    >
-                      <Plus className="h-3 w-3 text-slate-700" />
-                    </button>
+                    <span className="text-sm text-slate-500 line-through">
+                      ₱{item.basePrice.toFixed(2)}
+                    </span>
                   </div>
-                )}
-              </div>
+                  <div className="text-xs text-slate-500">
+                    Save ₱{(item.basePrice - item.discountPrice).toFixed(2)}
+                  </div>
+                </div>
+              ) : (
+                <div className="text-2xl font-bold text-slate-900">
+                  ₱{item.basePrice.toFixed(2)}
+                </div>
+              )}
+
+              {item.variations && item.variations.length > 0 && (
+                <div className="text-xs text-slate-500 mt-1">
+                  Starting from
+                </div>
+              )}
+            </div>
+
+            {/* Button / quantity */}
+            <div className="flex-shrink-0 w-full sm:w-auto">
+              {!item.available ? (
+                <button
+                  disabled
+                  className="w-full sm:w-auto bg-slate-200 text-slate-500 px-4 py-2.5 rounded-xl cursor-not-allowed font-medium text-sm"
+                >
+                  Unavailable
+                </button>
+              ) : quantity === 0 ? (
+                <button
+                  onClick={handleAddToCart}
+                  className="w-full sm:w-auto bg-gradient-to-r from-brand-primary to-brand-secondary text-white px-4 py-2.5 rounded-xl hover:from-brand-secondary hover:to-brand-primary transition-all duration-200 transform hover:scale-105 font-semibold text-sm shadow-lg hover:shadow-xl"
+                >
+                  {item.variations?.length || item.addOns?.length ? 'Select' : 'Add'}
+                </button>
+              ) : (
+                <div className="flex items-center justify-center sm:justify-start space-x-2 bg-orange-50 rounded-xl p-1 border border-orange-200 w-full sm:w-auto">
+                  <button
+                    onClick={handleDecrement}
+                    className="p-2 hover:bg-orange-100 rounded-lg transition-colors duration-200 hover:scale-110"
+                  >
+                    <Minus className="h-4 w-4 text-slate-700" />
+                  </button>
+                  <span className="font-bold text-slate-900 min-w-[28px] text-center text-sm">{quantity}</span>
+                  <button
+                    onClick={handleIncrement}
+                    className="p-2 hover:bg-orange-100 rounded-lg transition-colors duration-200 hover:scale-110"
+                  >
+                    <Plus className="h-4 w-4 text-slate-700" />
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
