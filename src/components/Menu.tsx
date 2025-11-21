@@ -75,9 +75,9 @@ const Menu: React.FC<MenuProps> = ({ menuItems, addToCart, cartItems, updateQuan
       <div className="text-center mb-12">
         <h2 className="text-4xl font-noto font-semibold text-black mb-4">Our Menu</h2>
         <p className="text-gray-600 max-w-2xl mx-auto">
-        At Mama Lenny’s, we’re all about delivering your favorite Pancit Con Lechon – fresh, flavorful, and made for every occasion. 
-        Whether it’s for your next celebration or a quick comfort meal, we’re your go-to pancitan, serving up local goodness every day. 
-        <br/> Call us at 0966 200 3420 for orders and inquiries.
+        At Mama Lenny’s, we’re proud to serve your All time favorite Pancit Con Lechon fresh, flavorful, at laging handa para sa anumang okasyon.
+We’re also expanding our offerings with Made-to-Order Food Trays and Custom Bento Meals, perfect for parties, meetings, school events, and family gatherings.
+   <br/> For inquiries or ang fast transaction pls call us at: 0966 200 3420
         </p>
       </div>
 
